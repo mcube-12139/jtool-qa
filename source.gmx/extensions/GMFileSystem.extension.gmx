@@ -2002,21 +2002,6 @@ Filesystem improvements</description>
           </args>
         </function>
         <function>
-          <name>FS_xml_insert_elem</name>
-          <externalName>xml_insert_elem</externalName>
-          <kind>12</kind>
-          <help>FS_xml_insert_elem(real xml, real parent_elem, real after_node, string name, string value)</help>
-          <returnType>2</returnType>
-          <argCount>5</argCount>
-          <args>
-            <arg>2</arg>
-            <arg>2</arg>
-            <arg>2</arg>
-            <arg>1</arg>
-            <arg>1</arg>
-          </args>
-        </function>
-        <function>
           <name>FS_xml_insert_end_elem</name>
           <externalName>xml_insert_end_elem</externalName>
           <kind>12</kind>
@@ -2038,21 +2023,6 @@ Filesystem improvements</description>
           <returnType>2</returnType>
           <argCount>4</argCount>
           <args>
-            <arg>2</arg>
-            <arg>2</arg>
-            <arg>2</arg>
-            <arg>1</arg>
-          </args>
-        </function>
-        <function>
-          <name>FS_xml_insert_node</name>
-          <externalName>xml_insert_node</externalName>
-          <kind>12</kind>
-          <help>FS_xml_insert_node(real xml, real node, real after_node, real type, string name)</help>
-          <returnType>2</returnType>
-          <argCount>5</argCount>
-          <args>
-            <arg>2</arg>
             <arg>2</arg>
             <arg>2</arg>
             <arg>2</arg>

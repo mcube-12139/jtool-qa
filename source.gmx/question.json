@@ -1,0 +1,28 @@
+{
+    "question": [
+        {
+            "map": "fuck.jmap",
+            "answer": "fuck answer.jmap",
+            "timeLimit": 10,
+            "questionTip": "上下左",
+            "spikeLimit": 3,
+            "score": {
+                "0": 0,
+                "1-2": 25,
+                "3": 100
+            },
+            "gameName": "fuck"
+        }, {
+            "map": "bar.jmap",
+            "answer": "bar answer.jmap",
+            "timeLimit": 6,
+            "questionTip": "在左上角的砖左边放一个刺",
+            "spikeLimit": 2,
+            "score": {
+                "0": 0,
+                "1": 100
+            },
+            "gameName": "bar"
+        }
+    ]
+}

@@ -293,6 +293,123 @@ global.count += 1
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (global.timeLeft &gt;= 0) {
+    --global.timeLeft;
+    if (global.timeLeft == 0) {
+        global.playback = true;
+        global.flashAnswerDelay = room_speed + 1;
+    }
+}
+
+if (global.flashAnswerDelay &gt;= 0) {
+    --global.flashAnswerDelay;
+    if (global.flashAnswerDelay == 0) {
+        // create answer objects
+        for (var i = 0, length = array_length_1d(global.answerObjects); i &lt; length; i += 3) {
+            var xx = global.answerObjects[i];
+            var yy = global.answerObjects[i + 1];
+            var objectID = global.answerObjects[i + 2];
+            
+            with (instance_create(xx, yy, objectID)) {
+                answer = true;
+            }
+        }
+        // hide edited objects
+        with (all) {
+            if (objectInPalette(object_index) &amp;&amp; !variable_instance_exists(id, "background") &amp;&amp; !variable_instance_exists(id, "answer")) {
+                visible = false;
+            }
+        }
+    }
+    global.flashTimeLeft = room_speed / 2 + 1;
+    global.flashCountLeft = 4;
+}
+
+if (global.flashTimeLeft &gt;= 0) {
+    --global.flashTimeLeft;
+    if (global.flashTimeLeft == 0) {
+        with (all) {
+            if (variable_instance_exists(id, "answer")) {
+                visible = !visible;
+            }
+        }
+        --global.flashCountLeft;
+        if (global.flashCountLeft &gt; 0) {
+            global.flashTimeLeft = room_speed / 2;
+        } else {
+            global.flashEndDelay = room_speed;
+        }
+    }
+}
+
+if (global.flashEndDelay &gt;= 0) {
+    --global.flashEndDelay;
+    if (global.flashEndDelay == 0) {
+        global.rightCount = 0;
+    
+        with (all) {
+            if (variable_instance_exists(id, "answer")) {
+                instance_destroy();
+            } else if (objectInPalette(object_index) &amp;&amp; !variable_instance_exists(id, "background")) {
+                visible = true;
+                var posKey = string(x) + " " + string(y);
+                
+                var rightWrongSpr = -1;
+                if (ds_map_exists(global.answerObjectsPosMap, posKey)) {
+                    var answerObjectID = global.answerObjectsPosMap[? posKey];
+                    if (object_index == answerObjectID) {
+                        rightWrongSpr = sRight;
+                        global.rightCount += 1;
+                    } else {
+                        rightWrongSpr = sHalfRight;
+                        global.rightCount += 0.5;
+                    }
+                } else {
+                    rightWrongSpr = sWrong;
+                }
+                with (instance_create(x + sprite_width / 2, y + sprite_height / 2, oRightWrong)) {
+                    sprite_index = rightWrongSpr;
+                }
+            }
+        }
+        
+        global.playerScore = global.fuckGMScore[round(global.rightCount)];
+        global.showScore = true;
+        global.playerScores[global.nowMapIndex] = global.playerScore;
+        
+        global.nextMapDelay = 2 * room_speed;
+    }
+}
+
+if (global.nextMapDelay &gt;= 0) {
+    --global.nextMapDelay;
+    if (global.nextMapDelay == 0) {
+        global.playback = false;
+        global.showScore = false;
+        instance_destroy(oRightWrong);
+        nextMap();
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="7" enumb="62">
       <action>

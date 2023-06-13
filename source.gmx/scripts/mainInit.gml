@@ -8,7 +8,7 @@
    but I think that's a safe assumption.
 */
 global.run_from_editor = string_pos('gm_ttt',working_directory) != 0
-global.editor_project_path = 'C:\Users\User\Downloads\jtool 1.x.y\source.gmx'
+global.editor_project_path = 'D:\game maker studio\project\jtool\source.gmx'
 // add backslash to end
 if string_char_at(global.editor_project_path,string_length(global.editor_project_path)) != '\' {
     global.editor_project_path += '\'
@@ -19,6 +19,25 @@ if global.run_from_editor and not FS_directory_exists(global.editor_project_path
 }
 
 ex_patch_window_close_capture(true)
+
+defineMaps();
+global.nowMapIndex = -1;
+global.timeLeft = -1;
+global.questionTip = "";
+
+global.playback = false;
+global.flashAnswerDelay = -1;
+global.flashTimeLeft = -1;
+global.flashCountLeft = 0;
+global.flashEndDelay = -1;
+global.answerObjectsPosMap = ds_map_create();
+global.nextMapDelay = -1;
+global.playerScore = 0;
+global.showScore = false;
+
+global.answerCount = 0;
+
+global.playerScores = array_create(0);
 
 // global state
 global.state = globalstate_idle
@@ -55,6 +74,7 @@ global.checkNudgeEarly = true;
 
 loadConfig()
 
+/*
 var backupFilename = prefix_project_path_if_needed('backup.jmap')
 if FS_file_exists(backupFilename) {
     loadMap(backupFilename)
@@ -66,6 +86,8 @@ else {
         versionRequestId = http_get('https://raw.githubusercontent.com/patrickgh3/jtool/master/current-version.json')
     }
 }
+*/
+nextMap();
 
 // misc
 randomize()

@@ -164,6 +164,9 @@
       <sprite>sprites\sWakahaEasterEgg</sprite>
     </sprites>
     <sprite>sprites\sprite121</sprite>
+    <sprite>sprites\sRight</sprite>
+    <sprite>sprites\sWrong</sprite>
+    <sprite>sprites\sHalfRight</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bgBackground</background>
@@ -172,21 +175,17 @@
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
-    <scripts name="util">
-      <script>scripts\fontSetup.gml</script>
-      <script>scripts\point_in_rect.gml</script>
-      <script>scripts\padStringLeft.gml</script>
-      <script>scripts\splitDelimString.gml</script>
-      <script>scripts\stringIsInt.gml</script>
-      <script>scripts\colorFromHsvDelimString.gml</script>
-      <script>scripts\prefix_project_path_if_needed.gml</script>
-      <script>scripts\FSIniReadReal.gml</script>
-      <script>scripts\selectPrevObject.gml</script>
-      <script>scripts\selectNextObject.gml</script>
-      <script>scripts\selectEditObject.gml</script>
-      <script>scripts\handleObjectDragMode.gml</script>
-      <script>scripts\findInstanceToDrag.gml</script>
+    <scripts name="buttons">
+      <script>scripts\menuButton.gml</script>
+      <script>scripts\menuButtonToggle.gml</script>
+      <script>scripts\drawButton.gml</script>
+      <script>scripts\menuSection.gml</script>
+      <script>scripts\comboBoxButton.gml</script>
+      <script>scripts\menuButtonTwoPart.gml</script>
+      <script>scripts\menuButtonShift.gml</script>
     </scripts>
+    <script>scripts\defineMaps.gml</script>
+    <script>scripts\getMapObjectsFromFile.gml</script>
     <scripts name="input overlay">
       <script>scripts\inputOverlay.gml</script>
       <script>scripts\inputOverlayFinish.gml</script>
@@ -204,15 +203,6 @@
       <script>scripts\inputCallback_NewVersionOpenThread.gml</script>
       <script>scripts\inputCallback_addCodeToObject.gml</script>
     </scripts>
-    <scripts name="buttons">
-      <script>scripts\menuButton.gml</script>
-      <script>scripts\menuButtonToggle.gml</script>
-      <script>scripts\drawButton.gml</script>
-      <script>scripts\menuSection.gml</script>
-      <script>scripts\comboBoxButton.gml</script>
-      <script>scripts\menuButtonTwoPart.gml</script>
-      <script>scripts\menuButtonShift.gml</script>
-    </scripts>
     <scripts name="jump analysis">
       <script>scripts\jumpDurations_Create.gml</script>
       <script>scripts\jumpDurations_EndStep.gml</script>
@@ -225,50 +215,7 @@
       <script>scripts\adjustPlayerPosition_EndStep.gml</script>
       <script>scripts\drawHint.gml</script>
     </scripts>
-    <scripts name="player">
-      <script>scripts\playerJump.gml</script>
-      <script>scripts\playerVJump.gml</script>
-      <script>scripts\playerShoot.gml</script>
-      <script>scripts\TASwatercheck.gml</script>
-      <script>scripts\TASNudgeCheck.gml</script>
-      <script>scripts\killPlayer.gml</script>
-      <script>scripts\flipGravity.gml</script>
-      <script>scripts\flipGravityRecord.gml</script>
-    </scripts>
-    <scripts name="saveload">
-      <scripts name="save map">
-        <script>scripts\saveMap.gml</script>
-        <script>scripts\saveMapName.gml</script>
-        <script>scripts\intToBase32String.gml</script>
-        <script>scripts\floatToBase32String.gml</script>
-        <script>scripts\objectToSaveID.gml</script>
-        <script>scripts\bin_to_dec.gml</script>
-        <script>scripts\encode_real_double.gml</script>
-      </scripts>
-      <scripts name="load map">
-        <script>scripts\loadMap.gml</script>
-        <script>scripts\loadMapAskName.gml</script>
-        <script>scripts\loadStartupMap.gml</script>
-        <script>scripts\base32StringToInt.gml</script>
-        <script>scripts\base32StringToFloat.gml</script>
-        <script>scripts\saveIDToObject.gml</script>
-        <script>scripts\dec_to_bin.gml</script>
-        <script>scripts\decode_real_double.gml</script>
-      </scripts>
-      <scripts name="rmj">
-        <script>scripts\loadRMJMap.gml</script>
-        <script>scripts\rmjCodeToObject.gml</script>
-        <script>scripts\saveRMJMap.gml</script>
-        <script>scripts\objectToRmjCode.gml</script>
-      </scripts>
-      <scripts name="other">
-        <script>scripts\savePlayer.gml</script>
-        <script>scripts\loadPlayer.gml</script>
-        <script>scripts\saveConfig.gml</script>
-        <script>scripts\loadConfig.gml</script>
-        <script>scripts\loadSkin.gml</script>
-      </scripts>
-    </scripts>
+    <script>scripts\loadMapFromStr.gml</script>
     <scripts name="misc">
       <script>scripts\mainInit.gml</script>
       <script>scripts\highlightGetFraction.gml</script>
@@ -287,6 +234,7 @@
       <script>scripts\deleteBackup.gml</script>
       <script>scripts\exitPressed.gml</script>
     </scripts>
+    <script>scripts\nextMap.gml</script>
     <scripts name="object code">
       <scripts name="NSP">
         <script>scripts\NSP_Documentation.gml</script>
@@ -353,20 +301,15 @@
       <script>scripts\codable_is_dynamic.gml</script>
       <script>scripts\codable_error_callback.gml</script>
     </scripts>
-    <scripts name="undo">
-      <script>scripts\createStringFromInstance.gml</script>
-      <script>scripts\addUndoEvent.gml</script>
-      <script>scripts\handleUndoCommand.gml</script>
-      <script>scripts\handleRedoCommand.gml</script>
-      <script>scripts\expandUndoEvent.gml</script>
-      <script>scripts\clearUndoStack.gml</script>
-      <script>scripts\undoCreate.gml</script>
-      <script>scripts\undoMove.gml</script>
-      <script>scripts\undoDestroy.gml</script>
-      <script>scripts\redoCreate.gml</script>
-      <script>scripts\redoMove.gml</script>
-      <script>scripts\redoDestroy.gml</script>
-      <script>scripts\getPositionString.gml</script>
+    <scripts name="player">
+      <script>scripts\playerJump.gml</script>
+      <script>scripts\playerVJump.gml</script>
+      <script>scripts\playerShoot.gml</script>
+      <script>scripts\TASwatercheck.gml</script>
+      <script>scripts\TASNudgeCheck.gml</script>
+      <script>scripts\killPlayer.gml</script>
+      <script>scripts\flipGravity.gml</script>
+      <script>scripts\flipGravityRecord.gml</script>
     </scripts>
     <scripts name="record">
       <script>scripts\startRecord.gml</script>
@@ -384,6 +327,71 @@
         <script>scripts\continueRecord.gml</script>
       </scripts>
     </scripts>
+    <scripts name="saveload">
+      <scripts name="save map">
+        <script>scripts\saveMap.gml</script>
+        <script>scripts\saveMapName.gml</script>
+        <script>scripts\intToBase32String.gml</script>
+        <script>scripts\floatToBase32String.gml</script>
+        <script>scripts\objectToSaveID.gml</script>
+        <script>scripts\bin_to_dec.gml</script>
+        <script>scripts\encode_real_double.gml</script>
+      </scripts>
+      <scripts name="load map">
+        <script>scripts\loadMap.gml</script>
+        <script>scripts\loadMapAskName.gml</script>
+        <script>scripts\loadStartupMap.gml</script>
+        <script>scripts\base32StringToInt.gml</script>
+        <script>scripts\base32StringToFloat.gml</script>
+        <script>scripts\saveIDToObject.gml</script>
+        <script>scripts\dec_to_bin.gml</script>
+        <script>scripts\decode_real_double.gml</script>
+      </scripts>
+      <scripts name="rmj">
+        <script>scripts\loadRMJMap.gml</script>
+        <script>scripts\rmjCodeToObject.gml</script>
+        <script>scripts\saveRMJMap.gml</script>
+        <script>scripts\objectToRmjCode.gml</script>
+      </scripts>
+      <scripts name="other">
+        <script>scripts\savePlayer.gml</script>
+        <script>scripts\loadPlayer.gml</script>
+        <script>scripts\saveConfig.gml</script>
+        <script>scripts\loadConfig.gml</script>
+        <script>scripts\loadSkin.gml</script>
+      </scripts>
+    </scripts>
+    <scripts name="undo">
+      <script>scripts\createStringFromInstance.gml</script>
+      <script>scripts\addUndoEvent.gml</script>
+      <script>scripts\handleUndoCommand.gml</script>
+      <script>scripts\handleRedoCommand.gml</script>
+      <script>scripts\expandUndoEvent.gml</script>
+      <script>scripts\clearUndoStack.gml</script>
+      <script>scripts\undoCreate.gml</script>
+      <script>scripts\undoMove.gml</script>
+      <script>scripts\undoDestroy.gml</script>
+      <script>scripts\redoCreate.gml</script>
+      <script>scripts\redoMove.gml</script>
+      <script>scripts\redoDestroy.gml</script>
+      <script>scripts\getPositionString.gml</script>
+    </scripts>
+    <scripts name="util">
+      <script>scripts\fontSetup.gml</script>
+      <script>scripts\point_in_rect.gml</script>
+      <script>scripts\padStringLeft.gml</script>
+      <script>scripts\splitDelimString.gml</script>
+      <script>scripts\stringIsInt.gml</script>
+      <script>scripts\colorFromHsvDelimString.gml</script>
+      <script>scripts\prefix_project_path_if_needed.gml</script>
+      <script>scripts\FSIniReadReal.gml</script>
+      <script>scripts\selectPrevObject.gml</script>
+      <script>scripts\selectNextObject.gml</script>
+      <script>scripts\selectEditObject.gml</script>
+      <script>scripts\handleObjectDragMode.gml</script>
+      <script>scripts\findInstanceToDrag.gml</script>
+    </scripts>
+    <script>scripts\getPlayerAnswerCount.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shdSingleColor.shader</shader>
@@ -391,6 +399,8 @@
   <fonts name="fonts">
     <font>fonts\font_small</font>
     <font>fonts\font_big</font>
+    <font>fonts\font_title</font>
+    <font>fonts\font_state</font>
   </fonts>
   <objects name="objects">
     <object>objects\oPlayer</object>
@@ -480,10 +490,16 @@
       <object>objects\oDepthOrderPlayerHint</object>
       <object>objects\oWakahaEasterEgg</object>
     </objects>
+    <object>objects\oInit</object>
+    <object>objects\oStateDisplay</object>
+    <object>objects\oRightWrong</object>
+    <object>objects\oEndScore</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\rInit</room>
     <room>rooms\rMain</room>
     <room>rooms\rm_sample_ex_patch_windowclose</room>
+    <room>rooms\rEnd</room>
   </rooms>
   <constants number="23">
     <constant name="globalstate_idle">1</constant>

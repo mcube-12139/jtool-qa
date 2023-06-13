@@ -78,7 +78,11 @@ ysnapped_previous = 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>cursor_in_area = point_in_rect(mouse_x,mouse_y,xmin,ymin,xmax,ymax)
+            <string>if (global.playback) {
+    exit;
+}
+
+cursor_in_area = point_in_rect(mouse_x,mouse_y,xmin,ymin,xmax,ymax)
 
 var left = mouse_check_button(mb_left)
 var right = mouse_check_button(mb_right)
@@ -164,38 +168,40 @@ if( shouldCaptureControls ) {
         window_set_cursor(cr_default)
         
         // creating
-        if leftpressed and not right {
-            undo_leftpressedinedit = true
-            addUndoEvent( 'c' );
-            undo_nochanges = false
-        }
-        if left and not right and undo_leftpressedinedit {
-            // just clicked
-            if leftpressed or selected_object == oPlayerStart {
-                editCreateObjectIfNotSamePos(xsnapped, ysnapped, selected_object)
+        if (getPlayerAnswerCount() &lt; global.spikeLimit) {
+            if leftpressed and not right {
+                undo_leftpressedinedit = true
+                addUndoEvent( 'c' );
+                undo_nochanges = false
             }
-            // dragging
-            else {
-                var dx = xsnapped - xsnapped_previous
-                var dy = ysnapped - ysnapped_previous
-                if abs(dx) &gt;= abs(dy) and dx != 0 and snap != 1 {
-                    for (var ox = xsnapped_previous; ox*sign(dx) &lt;= xsnapped*sign(dx); ox += snap*sign(dx)) {
-                        var fract = (ox-xsnapped_previous) / dx
-                        var oy = ysnapped_previous + fract * dy
-                        oy = round(oy/snap)*snap
-                        editCreateObjectIfFree(ox, oy, selected_object)
-                    }
-                }
-                else if abs(dx) &lt; abs(dy) and dy != 0 and snap != 1 {
-                    for (var oy = ysnapped_previous; oy*sign(dy) &lt;= ysnapped*sign(dy); oy += snap*sign(dy)) {
-                        var fract = (oy-ysnapped_previous) / dy
-                        var ox = xsnapped_previous + fract * dx
-                        ox = round(ox/snap)*snap
-                        editCreateObjectIfFree(ox, oy, selected_object)
-                    }
-                }
-                else if snap == 1 and (dx != 0 or dy != 0) {
+            if left and not right and undo_leftpressedinedit {
+                // just clicked
+                if leftpressed or selected_object == oPlayerStart {
                     editCreateObjectIfNotSamePos(xsnapped, ysnapped, selected_object)
+                }
+                // dragging
+                else {
+                    var dx = xsnapped - xsnapped_previous
+                    var dy = ysnapped - ysnapped_previous
+                    if abs(dx) &gt;= abs(dy) and dx != 0 and snap != 1 {
+                        for (var ox = xsnapped_previous; ox*sign(dx) &lt;= xsnapped*sign(dx); ox += snap*sign(dx)) {
+                            var fract = (ox-xsnapped_previous) / dx
+                            var oy = ysnapped_previous + fract * dy
+                            oy = round(oy/snap)*snap
+                            editCreateObjectIfFree(ox, oy, selected_object)
+                        }
+                    }
+                    else if abs(dx) &lt; abs(dy) and dy != 0 and snap != 1 {
+                        for (var oy = ysnapped_previous; oy*sign(dy) &lt;= ysnapped*sign(dy); oy += snap*sign(dy)) {
+                            var fract = (oy-ysnapped_previous) / dy
+                            var ox = xsnapped_previous + fract * dx
+                            ox = round(ox/snap)*snap
+                            editCreateObjectIfFree(ox, oy, selected_object)
+                        }
+                    }
+                    else if snap == 1 and (dx != 0 or dy != 0) {
+                        editCreateObjectIfNotSamePos(xsnapped, ysnapped, selected_object)
+                    }
                 }
             }
         }
@@ -208,6 +214,9 @@ if( shouldCaptureControls ) {
         }
         if right and not left and undo_rightpressedinedit {
             with all {
+                if (variable_instance_exists(id, "background")) {
+                    continue;
+                }
                 if not objectInPalette(object_index) continue
                 if global.waterlocked and
                     (object_index == oWater
@@ -297,7 +306,11 @@ ysnapped_previous = ysnapped
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if cursor_in_area and global.state == globalstate_idle {
+            <string>if (global.playback) {
+    exit;
+}
+
+if cursor_in_area and global.state == globalstate_idle {
     if( !keyboard_check(vk_control) &amp;&amp; !keyboard_check_direct(vk_alt) &amp;&amp; !keyboard_check_direct( vk_space ) &amp;&amp; !mouse_check_button( mb_middle ) ) {
         var color = c_white
         if selected_killer color = global.color_killer
