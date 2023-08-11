@@ -45,56 +45,6 @@ xxs[buttonCount]=2 yys[buttonCount]=0 sprs[buttonCount]=sSpikeLeft objs[buttonCo
 buttonCount++;
 xxs[buttonCount]=3 yys[buttonCount]=0 sprs[buttonCount]=sSpikeRight objs[buttonCount]=oSpikeRight offs[buttonCount]=16 killers[buttonCount]=true tooltips[buttonCount] = ''; 
 buttonCount++;
-xxs[buttonCount]=0 yys[buttonCount]=1 sprs[buttonCount]=sMiniSpikeUp objs[buttonCount]=oMiniSpikeUp offs[buttonCount]=8 killers[buttonCount]=true tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=1 yys[buttonCount]=1 sprs[buttonCount]=sMiniSpikeDown objs[buttonCount]=oMiniSpikeDown offs[buttonCount]=8 killers[buttonCount]=true tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=2 yys[buttonCount]=1 sprs[buttonCount]=sMiniSpikeLeft objs[buttonCount]=oMiniSpikeLeft offs[buttonCount]=8 killers[buttonCount]=true tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=3 yys[buttonCount]=1 sprs[buttonCount]=sMiniSpikeRight objs[buttonCount]=oMiniSpikeRight offs[buttonCount]=8 killers[buttonCount]=true tooltips[buttonCount] = ''; 
-buttonCount++;                                                                                         
-xxs[buttonCount]=0 yys[buttonCount]=2 sprs[buttonCount]=sEditBlock objs[buttonCount]=oEditBlock offs[buttonCount]=16 killers[buttonCount]=false tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=1 yys[buttonCount]=2 sprs[buttonCount]=sEditMiniBlock objs[buttonCount]=oEditMiniBlock offs[buttonCount]=8 killers[buttonCount]=false tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=2 yys[buttonCount]=2 sprs[buttonCount]=sPlatform objs[buttonCount]=oPlatform offs[buttonCount]=16 killers[buttonCount]=false tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=3 yys[buttonCount]=2 sprs[buttonCount]=sApple objs[buttonCount]=oApple offs[buttonCount] = 0 killers[buttonCount]=true tooltips[buttonCount] = ''; 
-buttonCount++;    
-xxs[buttonCount]=0 yys[buttonCount]=3 sprs[buttonCount]=sWater2 objs[buttonCount]=oWater2 offs[buttonCount]=16 killers[buttonCount]=false tooltips[buttonCount]='Water 2';
-buttonCount++;
-xxs[buttonCount]=1 yys[buttonCount]=3 sprs[buttonCount]=sWater3 objs[buttonCount]=oWater3 offs[buttonCount]=16 killers[buttonCount]=false tooltips[buttonCount]='Water 3';
-buttonCount++;
-xxs[buttonCount]=2 yys[buttonCount]=3 sprs[buttonCount]=sWalljumpR objs[buttonCount]=oWalljumpR offs[buttonCount] = 16 killers[buttonCount]=false tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=3 yys[buttonCount]=3 sprs[buttonCount]=sWalljumpL objs[buttonCount]=oWalljumpL offs[buttonCount] = 16 killers[buttonCount]=false tooltips[buttonCount] = ''; 
-buttonCount++;        
-xxs[buttonCount]=0 yys[buttonCount]=4 sprs[buttonCount]=sJumpRefresher objs[buttonCount]=oJumpRefresher offs[buttonCount]=0 killers[buttonCount]=false tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=1 yys[buttonCount]=4 sprs[buttonCount]=sSave objs[buttonCount]=oSave offs[buttonCount]=16 killers[buttonCount]=false tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=2 yys[buttonCount]=4 sprs[buttonCount]=sPlayerStart objs[buttonCount]=oPlayerStart offs[buttonCount]=16 killers[buttonCount]=false tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=3 yys[buttonCount]=4 sprs[buttonCount]=sEllipsis objs[buttonCount]=noone offs[buttonCount]=0 killers[buttonCount]=false tooltips[buttonCount]='More objects'
-buttonCount++;
-xxs[buttonCount]=0 yys[buttonCount]=5 sprs[buttonCount]=sWarp objs[buttonCount]=oWarp offs[buttonCount]=16 killers[buttonCount]=false tooltips[buttonCount]='Goal';
-buttonCount++;
-xxs[buttonCount]=1 yys[buttonCount]=5 sprs[buttonCount]=sKillerBlock objs[buttonCount]=oKillerBlock offs[buttonCount]=16 killers[buttonCount]=true tooltips[buttonCount]='Killer block';
-buttonCount++;
-xxs[buttonCount]=2 yys[buttonCount]=5 sprs[buttonCount]=sWater1 objs[buttonCount]=oWater offs[buttonCount]=16 killers[buttonCount]=false tooltips[buttonCount]='Water 1';
-buttonCount++;
-xxs[buttonCount]=3 yys[buttonCount]=5 sprs[buttonCount]=sBulletBlocker objs[buttonCount]=oBulletBlocker offs[buttonCount]=16 killers[buttonCount]=false tooltips[buttonCount]='Bullet blocker';
-buttonCount++;        
-xxs[buttonCount]=0 yys[buttonCount]=6 sprs[buttonCount]=sGravityArrowUp objs[buttonCount]=oGravityArrowUp offs[buttonCount]=16 killers[buttonCount]=false tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=1 yys[buttonCount]=6 sprs[buttonCount]=sGravityArrowDown objs[buttonCount]=oGravityArrowDown offs[buttonCount]=16 killers[buttonCount]=false tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=2 yys[buttonCount]=6 sprs[buttonCount]=sSaveFlip objs[buttonCount]=oSaveFlip offs[buttonCount]=16 killers[buttonCount]=false tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=3 yys[buttonCount]=6 sprs[buttonCount]=sPink32 objs[buttonCount]=oTrg offs[buttonCount]=16 killers[buttonCount]=false tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=0 yys[buttonCount]=7 sprs[buttonCount]=sMiniKillerBlock objs[buttonCount]=oMiniKillerBlock offs[buttonCount]=0 killers[buttonCount]=true tooltips[buttonCount]='Mini killer block';
-buttonCount++;
 
 
 </string>
