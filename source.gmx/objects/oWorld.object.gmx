@@ -313,6 +313,7 @@ global.count += 1
     --global.timeLeft;
     if (global.timeLeft == 0) {
         global.playback = true;
+        global.playerAnswerCount = getPlayerAnswerCount();
         global.flashAnswerDelay = room_speed + 1;
     }
 }
@@ -320,20 +321,23 @@ global.count += 1
 if (global.flashAnswerDelay &gt;= 0) {
     --global.flashAnswerDelay;
     if (global.flashAnswerDelay == 0) {
+        // hide edited objects
+        with (all) {
+            if (isAVObject(object_index)) {
+                visible = false;
+            }
+        }
         // create answer objects
+        global.answerInstances = array_create(0);
+        var index = 0;
         for (var i = 0, length = array_length_1d(global.answerObjects); i &lt; length; i += 3) {
             var xx = global.answerObjects[i];
             var yy = global.answerObjects[i + 1];
             var objectID = global.answerObjects[i + 2];
             
             with (instance_create(xx, yy, objectID)) {
-                answer = true;
-            }
-        }
-        // hide edited objects
-        with (all) {
-            if (objectInPalette(object_index) &amp;&amp; !variable_instance_exists(id, "background") &amp;&amp; !variable_instance_exists(id, "answer")) {
-                visible = false;
+                global.answerInstances[index] = id;
+                ++index;
             }
         }
     }
@@ -344,11 +348,7 @@ if (global.flashAnswerDelay &gt;= 0) {
 if (global.flashTimeLeft &gt;= 0) {
     --global.flashTimeLeft;
     if (global.flashTimeLeft == 0) {
-        with (all) {
-            if (variable_instance_exists(id, "answer")) {
-                visible = !visible;
-            }
-        }
+        toggleAnswerInstancesVisible();
         --global.flashCountLeft;
         if (global.flashCountLeft &gt; 0) {
             global.flashTimeLeft = room_speed / 2;
@@ -363,10 +363,9 @@ if (global.flashEndDelay &gt;= 0) {
     if (global.flashEndDelay == 0) {
         global.rightCount = 0;
     
+        destroyAnswerInstances();
         with (all) {
-            if (variable_instance_exists(id, "answer")) {
-                instance_destroy();
-            } else if (objectInPalette(object_index) &amp;&amp; !variable_instance_exists(id, "background")) {
+            if (isAVObject(object_index)) {
                 visible = true;
                 var posKey = string(x) + " " + string(y);
                 
@@ -374,6 +373,7 @@ if (global.flashEndDelay &gt;= 0) {
                 if (ds_map_exists(global.answerObjectsPosMap, posKey)) {
                     var answerObjectID = global.answerObjectsPosMap[? posKey];
                     if (object_index == answerObjectID) {
+                        global.answerObjectsPosMap[? posKey] = -1;
                         rightWrongSpr = sRight;
                         global.rightCount += 1;
                     } else {

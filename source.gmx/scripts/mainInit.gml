@@ -8,7 +8,7 @@
    but I think that's a safe assumption.
 */
 global.run_from_editor = string_pos('gm_ttt',working_directory) != 0
-global.editor_project_path = 'D:\game maker studio\project\jtool\source.gmx'
+global.editor_project_path = 'D:\develop\game maker studio\jtool-qa\source.gmx'
 // add backslash to end
 if string_char_at(global.editor_project_path,string_length(global.editor_project_path)) != '\' {
     global.editor_project_path += '\'
@@ -20,6 +20,9 @@ if global.run_from_editor and not FS_directory_exists(global.editor_project_path
 
 ex_patch_window_close_capture(true)
 
+// 游戏开始时是否检查地图
+// 防呆，消耗一点时间，发布时可关闭
+global.canCheckMaps = true;
 defineMaps();
 global.nowMapIndex = -1;
 global.timeLeft = -1;
@@ -34,9 +37,10 @@ global.answerObjectsPosMap = ds_map_create();
 global.nextMapDelay = -1;
 global.playerScore = 0;
 global.showScore = false;
+global.answerInstances = array_create(0);
 
 global.answerCount = 0;
-
+global.playerAnswerCount = 0;
 global.playerScores = array_create(0);
 
 // global state
@@ -74,19 +78,9 @@ global.checkNudgeEarly = true;
 
 loadConfig()
 
-/*
-var backupFilename = prefix_project_path_if_needed('backup.jmap')
-if FS_file_exists(backupFilename) {
-    loadMap(backupFilename)
-    inputOverlay(input_info,false,'Jtool did not exit successfully.#Backup map has been loaded.')
+if (global.canCheckMaps) {
+    checkMaps();
 }
-else {
-    loadStartupMap()
-    if global.checkupdates {
-        versionRequestId = http_get('https://raw.githubusercontent.com/patrickgh3/jtool/master/current-version.json')
-    }
-}
-*/
 nextMap();
 
 // misc

@@ -1,67 +1,48 @@
-Jtool
+Jtool QA
 ===
 
-[Download newest version - v1.3.5](http://www.mediafire.com/file/jbpeyzos6js279t/jtool_1.3.5.7z/file)
+主要功能替换为“看地形摆刺”的Jtool。
+玩家下载题目并放到游戏目录后，打开游戏即可开始摆刺，游戏根据玩家答案计算分数并显示。
+每一题都有提示词、限制时间，和限制摆刺数，在限制时间内摆的正确数越多，得分越高。
+
+题目文件
 ---
 
-Here is a link to the old forum thread:
-[http://iwannacommunity.com/forum/index.php?topic=1964.0]()
+根目录命名为`question.json`的文件就是题目文件。格式如下，示例可参考项目中文件：
 
-About
+### #root
+|名称|类型|必填|说明|示例|补充说明|
+| :----: | :----: | :----: | :----: | :----: | :----: |
+|`avObject`|`string[]`|是|可摆物体列表|`["oSpikeUp", "oSpikeRight", "oSpikeLeft", "oSpikeDown"]`|物体名必须按照工程里的`Object Asset`的名字来。地图里这些物体的实例会被计入实际刺数|
+|`question`|`Question[]`|是|题目列表|||
+
+### Question
+|名称|类型|必填|说明|示例|补充说明|
+| :----: | :----: | :----: | :----: | :----: | :----: |
+|`map`|`string`|是|地图文件名|`"foo.jmap"`||
+|`skin`|`string`|是|题目开始时的皮肤|`"brown_block"`||
+|`timeLimit`|`number`|是|限制时间秒数|`10`||
+|`questionTip`|`string`|是|提示词|`"所有刺都是向上"`||
+|`spikeLimit`|`number`|是|限制摆刺数|`3`|不能少于地图实际刺数|
+|`score`|`Map<string, number>`|是|得分段||两种写法，`"0": 0`表示正确数0的得分是0，`"1-3": 10`表示正确数1-3的得分都是10。必须完整覆盖地图实际刺数|
+|`gameName`|`string`|是|游戏名|`"foo"`||
+
+其他细节
 ---
 
-Jtool is a "jump tool" for IWBTG fangame players/creators to practice advanced
-techniques and design platforming. It's inspired by
-<a href="http://delicious-fruit.com/ratings/game_details.php?id=12455">RMJ</a>
-by Thenewgeezer. To learn more about the IWBTG fangame community, visit
-[fangam.es/intro](https://fangam.es/intro).
+* 玩家答案中，位置和方向都正确的刺，正确数+1；位置正确但方向错误的，正确数+0.5。如果最终正确数有小数，则四舍五入。
 
-![](http://i.imgur.com/nhoLqV1.png)
-
-Contributing
-===
-
-(March 2018)
-
-I've lost interest in maintaining Jtool. But I'm going to let others make
-their own improvements and new official versions, since Redire, Starz0r, and
-DuckNumbers have wanted to. So Jtool will be open source, in the sense that
-anyone can contribute, and I'll just approve pull requests.
-
-To contribute, make your own fork of the repository. See the section below for
-releasing new versions. You can contact me at Patrick no. 0303 on Discord.
-
-How to build
+构建项目
 ---
-Get GameMaker:Studio from
-<a href="https://www.yoyogames.com/downloads/gm-studio/release-notes-studio.html">here</a>.
-Recommended to use 1.4.1757 since some computers have trouble with exes
-compiled on newer versions.
+1. 下载`Game Maker: Studio`。
+2. 打开项目。
+3. 打开脚本`misc/mainInit`, 修改`global.editor_project`为项目目录，为了使`GMFileSystem`扩展能正常工作。
 
-In the script misc/mainInit, set the global variable editor_project to be the
-folder the project resides in. This allows GMFileSystem to work correctly when
-running the game from the editor's green play button (as opposed to the
-exported application).
-
-How to release a new version
+发布游戏
 ---
-1. Make sure you've tested thoroughly, preferably with another set of eyes,
-so that the new version doesn't cause problems with people.
-2. Update changelog.txt.
-3. Update mainInit script with the new version number.
-4. Package a release zip. (see below)
-5. Update README.md with the new download link and version number.
-6. Update current-version.json. (Jtool reads this file from Github to check if
-there's a new version)
-7. Make a pull request, and message Patrick no. 0303 on Discord so I can
-approve it.
-
-How to package a relase zip
----
-1. Compile the game as a zip (not executable or installer).
-2. Unzip that zip into a temp folder.
-3. Add the other files to the temp folder.
-[See this image (maybe don't include source.gmz anymore)](https://i.imgur.com/2jeg6OW.png)
-4. Zip the temp folder.
-5. Upload to your favorite file hosting site.
-
+1. 打开脚本，修改变量`global.canCheckMaps`为`false`。该功能用于辅助开发环节排错，在发布版本中不需要。如果不修改，会使玩家电脑多干一点废活，无恶劣影响。
+2. 打包zip，不要打包成单独exe或安装包exe。
+3. 解压打包成的zip。
+4. 把一些文件添加到解压出的文件夹。参考：[该图，但不要加入source.gmz，以及要增加question.json和所需地图文件](https://i.imgur.com/2jeg6OW.png)
+5. 把该文件夹再次打包成zip。
+6. 发布再次打包成的zip。

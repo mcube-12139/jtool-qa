@@ -63,7 +63,7 @@ draw_text(drawX, drawY, "得分");
 
 drawY += lineHeight;
 drawX = x;
-for (var i = 0, length = array_length_1d(global.answerMaps); i != length; ++i) {
+for (var i = 0, length = array_length_1d(global.gameNames); i != length; ++i) {
     draw_text(drawX, drawY, string(i + 1));
     drawX += columnWidth;
     draw_text(drawX, drawY, global.gameNames[i]);

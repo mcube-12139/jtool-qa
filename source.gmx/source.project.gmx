@@ -185,6 +185,7 @@
       <script>scripts\menuButtonShift.gml</script>
     </scripts>
     <script>scripts\defineMaps.gml</script>
+    <script>scripts\checkMaps.gml</script>
     <script>scripts\getMapObjectsFromFile.gml</script>
     <scripts name="input overlay">
       <script>scripts\inputOverlay.gml</script>
@@ -215,7 +216,9 @@
       <script>scripts\adjustPlayerPosition_EndStep.gml</script>
       <script>scripts\drawHint.gml</script>
     </scripts>
+    <script>scripts\loadQuestionMap.gml</script>
     <script>scripts\loadMapFromStr.gml</script>
+    <script>scripts\loadQuestionMapFromStr.gml</script>
     <scripts name="misc">
       <script>scripts\mainInit.gml</script>
       <script>scripts\highlightGetFraction.gml</script>
@@ -392,6 +395,9 @@
       <script>scripts\findInstanceToDrag.gml</script>
     </scripts>
     <script>scripts\getPlayerAnswerCount.gml</script>
+    <script>scripts\isAVObject.gml</script>
+    <script>scripts\destroyAnswerInstances.gml</script>
+    <script>scripts\toggleAnswerInstancesVisible.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shdSingleColor.shader</shader>
@@ -407,8 +413,8 @@
     <object>objects\oPlayerCopy</object>
     <object>objects\oRecordPlayer</object>
     <object>objects\oRecordPlayerCopy</object>
-    <object>objects\oPause</object>
     <object>objects\oWorld</object>
+    <object>objects\oPause</object>
     <object>objects\oMenu</object>
     <object>objects\oEdit</object>
     <object>objects\oInputOverlay</object>

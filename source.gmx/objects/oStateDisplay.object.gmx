@@ -63,7 +63,12 @@ draw_text(x, drawY, "倒计时: " + timeLeft);
 drawY += lineHeight;
 
 draw_text(x, drawY, "已摆刺: ")
-var playerAnswerCount = getPlayerAnswerCount();
+var playerAnswerCount;
+if (!global.playback) {
+    playerAnswerCount = getPlayerAnswerCount();
+} else {
+    playerAnswerCount = global.playerAnswerCount;
+}
 if (playerAnswerCount == global.spikeLimit) {
     draw_set_color(c_red);
 }

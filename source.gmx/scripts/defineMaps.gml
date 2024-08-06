@@ -16,14 +16,49 @@ if (questionMap == -1) {
     exit;
 }
 
+global.avObjects = array_create(0);
+global.avObjectMap = ds_map_create();
+
 global.questionMaps = array_create(0);
-global.answerMaps = array_create(0);
+global.skins = array_create(0);
 global.timeLimits = array_create(0);
 global.questionTips = array_create(0);
 global.spikeLimits = array_create(0);
 global.scores = array_create(0);
 global.gameNames = array_create(0);
 
+// 读取可用物体
+if (ds_map_exists(questionMap, "avObject")) {
+    var avObject = questionMap[? "avObject"];
+    if (ds_exists(avObject, ds_type_list)) {
+        for (var i = 0, size = ds_list_size(avObject); i != size; ++i) {
+            var object = avObject[| i];
+            if (is_string(object)) {
+                if (asset_get_type(object) == asset_object) {
+                    var objectIndex = asset_get_index(object);
+                    global.avObjects[i] = objectIndex;
+                    global.avObjectMap[? objectIndex] = 0;
+                } else {
+                    show_error("'avObject[" + string(i) + "] = " + object + "' is not an object asset.", true);
+                    exit;
+                }
+            } else {
+                show_error("'avObject[" + string(i) + "]' is not a string.", true);
+                exit;
+            }
+        }
+    
+        ds_list_destroy(avObject);
+    } else {
+        show_error("'avObject' is not an array.", true);
+        exit;
+    }
+} else {
+    show_error("Key 'avObject' does not exist.", true);
+    exit;
+}
+
+// 读取题目
 if (ds_map_exists(questionMap, "question")) {
     var question = questionMap[? "question"];
     if (ds_exists(question, ds_type_list)) {
@@ -31,7 +66,7 @@ if (ds_map_exists(questionMap, "question")) {
             var q = question[| i];
             if (ds_exists(q, ds_type_map)) {
                 var map;
-                var answer;
+                var skin;
                 var timeLimit;
                 var questionTip;
                 var spikeLimit;
@@ -41,7 +76,13 @@ if (ds_map_exists(questionMap, "question")) {
                 if (ds_map_exists(q, "map")) {
                     map = q[? "map"];
                     if (is_string(map)) {
-                        global.questionMaps[i] = prefix_project_path_if_needed(map);
+                        var fullPath = prefix_project_path_if_needed(map);
+                        if (FS_file_exists(fullPath)) {
+                            global.questionMaps[i] = fullPath;
+                        } else {
+                            show_error("Map '" + map + "' does not exist.", true);
+                            exit;
+                        }
                     } else {
                         show_error("'question[" + string(i) + "].map' is not a string.", true);
                         exit;
@@ -51,23 +92,34 @@ if (ds_map_exists(questionMap, "question")) {
                     exit;
                 }
                 
-                if (ds_map_exists(q, "answer")) {
-                    answer = q[? "answer"];
-                    if (is_string(answer)) {
-                        global.answerMaps[i] = prefix_project_path_if_needed(answer);
+                if (ds_map_exists(q, "skin")) {
+                    skin = q[? "skin"];
+                    if (is_string(skin)) {
+                        var skinFullPath = prefix_project_path_if_needed("skins\" + skin + "\");
+                        if (FS_directory_exists(skinFullPath)) {
+                            global.skins[i] = skin;
+                        } else {
+                            show_error("Skin '" + skin + "' does not exist.", true);
+                            exit;
+                        }
                     } else {
-                        show_error("'question[" + string(i) + "].answer' is not a string.", true);
+                        show_error("'question[" + string(i) + "].skin' is not a string.", true);
                         exit;
                     }
                 } else {
-                    show_error("'question[" + string(i) + "].answer' does not exist.", true);
+                    show_error("'question[" + string(i) + "].skin' does not exist.", true);
                     exit;
                 }
                 
                 if (ds_map_exists(q, "timeLimit")) {
                     timeLimit = q[? "timeLimit"];
                     if (is_real(timeLimit)) {
-                        global.timeLimits[i] = timeLimit;
+                        if (timeLimit > 0) {
+                            global.timeLimits[i] = timeLimit;
+                        } else {
+                            show_error("'question[" + string(i) + "].timeLimit = " + string(timeLimit) + "' is not positive.", true);
+                            exit;
+                        }
                     } else {
                         show_error("'question[" + string(i) + "].timeLimit' is not a number.", true);
                         exit;
@@ -93,7 +145,12 @@ if (ds_map_exists(questionMap, "question")) {
                 if (ds_map_exists(q, "spikeLimit")) {
                     spikeLimit = q[? "spikeLimit"];
                     if (is_real(spikeLimit)) {
-                        global.spikeLimits[i] = spikeLimit;
+                        if (spikeLimit > 0) {
+                            global.spikeLimits[i] = spikeLimit;
+                        } else {
+                            show_error("'question[" + string(i) + "].spikeLimit = " + string(spikeLimit) + "' is not positive.", true);
+                            exit;
+                        }
                     } else {
                         show_error("'question[" + string(i) + "].spikeLimit' is not a number.", true);
                         exit;
@@ -126,6 +183,7 @@ if (ds_map_exists(questionMap, "question")) {
                             }
                         }
                         global.scores[i] = scoreList;
+                        ds_map_destroy(_score);
                     } else {
                         show_error("'question[" + string(i) + "].score' is not an object.", true);
                         exit;
@@ -152,6 +210,7 @@ if (ds_map_exists(questionMap, "question")) {
                 exit;
             }
         }
+        ds_list_destroy(question);
     } else {
         show_error("'question' is not an array.", true);
         exit;
@@ -160,31 +219,5 @@ if (ds_map_exists(questionMap, "question")) {
     show_error("Key 'question' does not exist.", true);
     exit;
 }
+ds_map_destroy(questionMap);
 
-show_debug_message(global.answerMaps);
-
-/*
-global.questionMaps[0] = "jtool|1.3.5|inf:0|dot:0|sav:1|bor:0|px:40u8g00000000|py:40ubg00000000|ps:1|pg:1|objects:-70170160150-90150-80150-60150-50180170160150-h01f01g01h0-g0kg0";
-global.answerMaps[0] = "jtool|1.3.5|inf:0|dot:0|sav:1|bor:0|px:40u8g00000000|py:40ubg00000000|ps:1|pg:1|objects:-70170160150-90150-80150-60150-50180170160150-h01f01g01h0-40570660350-g0kg0";
-global.timeLimits[0] = 10;
-global.questionTips[0] = "上下左";
-global.spikeLimits[0] = 3;
-var _score0 = array_create(0);
-_score0[0] = 0;
-_score0[1] = 25;
-_score0[2] = 50;
-_score0[3] = 100;
-global.scores[0] = _score0;
-global.gameNames[0] = "fuck";
-
-global.questionMaps[1] = "jtool|1.3.5|inf:0|dot:0|sav:1|bor:0|px:40u8g00000000|py:40ubg00000000|ps:1|pg:1|objects:-70170160150-90150-80150-60150-50180170160150-h01f01g01h0-g0kg0";
-global.answerMaps[1] = "jtool|1.3.5|inf:0|dot:0|sav:1|bor:0|px:40u8g00000000|py:40ubg00000000|ps:1|pg:1|objects:-h01h01g01f0-50150160170180540-60150-80150-90150-70150160170-g0kg0";
-global.timeLimits[1] = 6;
-global.questionTips[1] = "在左上角的砖左边放一个刺";
-global.spikeLimits[1] = 2;
-var _score1 = array_create(0);
-_score1[0] = 0;
-_score1[1] = 100;
-global.scores[1] = _score1;
-global.gameNames[1] = "bar";
-*/

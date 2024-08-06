@@ -168,6 +168,7 @@ if( shouldCaptureControls ) {
         window_set_cursor(cr_default)
         
         // creating
+        // 限制创建数
         if (getPlayerAnswerCount() &lt; global.spikeLimit) {
             if leftpressed and not right {
                 undo_leftpressedinedit = true
@@ -214,7 +215,8 @@ if( shouldCaptureControls ) {
         }
         if right and not left and undo_rightpressedinedit {
             with all {
-                if (variable_instance_exists(id, "background")) {
+                if (!isAVObject(object_index)) {
+                    // 不是可摆物体，不让删
                     continue;
                 }
                 if not objectInPalette(object_index) continue

@@ -57,7 +57,6 @@ while index <= string_length(content) {
                             ++resultIndex;
                             result[resultIndex] = objectid;
                             ++resultIndex;
-                            // var inst = instance_create(xx-128,yy-128,objectid);
                         }
                         i += 3
                     }
@@ -71,14 +70,3 @@ while index <= string_length(content) {
 }
 
 return result;
-/*
-if global.shouldresetloadedmapname {
-    global.shouldresetloadedmapname = false
-    global.lastloadedmapname = ''
-    updateCaption()
-}
-else {
-    global.lastloadedmapname = splitDelimString(filename, '\', string_count('\', filename))
-    updateCaption()
-}
-*/

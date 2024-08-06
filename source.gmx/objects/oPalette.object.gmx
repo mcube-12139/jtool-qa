@@ -32,21 +32,123 @@
     yy - y coordinate of the button location
     spr - sprite to draw
     obj - object to select if clicked
-    off - offset to draw sprite at if origin is not centered
+    off - _offset to draw sprite at if origin is not centered
     killer - whether or not to draw the object with the killer tint
 */
 
+var _buttonCount = 0;
+var _xxs;
+var _yys;
+var _sprs;
+var _objs;
+var _offs;
+var _killers;
+var _tooltips;
+
+_xxs[_buttonCount]=0 _yys[_buttonCount]=0 _sprs[_buttonCount]=sSpikeUp _objs[_buttonCount]=oSpikeUp _offs[_buttonCount]=16 _killers[_buttonCount]=true _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=1 _yys[_buttonCount]=0 _sprs[_buttonCount]=sSpikeDown _objs[_buttonCount]=oSpikeDown _offs[_buttonCount]=16 _killers[_buttonCount]=true _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=2 _yys[_buttonCount]=0 _sprs[_buttonCount]=sSpikeLeft _objs[_buttonCount]=oSpikeLeft _offs[_buttonCount]=16 _killers[_buttonCount]=true _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=3 _yys[_buttonCount]=0 _sprs[_buttonCount]=sSpikeRight _objs[_buttonCount]=oSpikeRight _offs[_buttonCount]=16 _killers[_buttonCount]=true _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=0 _yys[_buttonCount]=1 _sprs[_buttonCount]=sMiniSpikeUp _objs[_buttonCount]=oMiniSpikeUp _offs[_buttonCount]=8 _killers[_buttonCount]=true _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=1 _yys[_buttonCount]=1 _sprs[_buttonCount]=sMiniSpikeDown _objs[_buttonCount]=oMiniSpikeDown _offs[_buttonCount]=8 _killers[_buttonCount]=true _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=2 _yys[_buttonCount]=1 _sprs[_buttonCount]=sMiniSpikeLeft _objs[_buttonCount]=oMiniSpikeLeft _offs[_buttonCount]=8 _killers[_buttonCount]=true _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=3 _yys[_buttonCount]=1 _sprs[_buttonCount]=sMiniSpikeRight _objs[_buttonCount]=oMiniSpikeRight _offs[_buttonCount]=8 _killers[_buttonCount]=true _tooltips[_buttonCount] = ''; 
+_buttonCount++;                                                                                         
+_xxs[_buttonCount]=0 _yys[_buttonCount]=2 _sprs[_buttonCount]=sEditBlock _objs[_buttonCount]=oEditBlock _offs[_buttonCount]=16 _killers[_buttonCount]=false _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=1 _yys[_buttonCount]=2 _sprs[_buttonCount]=sEditMiniBlock _objs[_buttonCount]=oEditMiniBlock _offs[_buttonCount]=8 _killers[_buttonCount]=false _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=2 _yys[_buttonCount]=2 _sprs[_buttonCount]=sPlatform _objs[_buttonCount]=oPlatform _offs[_buttonCount]=16 _killers[_buttonCount]=false _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=3 _yys[_buttonCount]=2 _sprs[_buttonCount]=sApple _objs[_buttonCount]=oApple _offs[_buttonCount] = 0 _killers[_buttonCount]=true _tooltips[_buttonCount] = ''; 
+_buttonCount++;    
+_xxs[_buttonCount]=0 _yys[_buttonCount]=3 _sprs[_buttonCount]=sWater2 _objs[_buttonCount]=oWater2 _offs[_buttonCount]=16 _killers[_buttonCount]=false _tooltips[_buttonCount]='Water 2';
+_buttonCount++;
+_xxs[_buttonCount]=1 _yys[_buttonCount]=3 _sprs[_buttonCount]=sWater3 _objs[_buttonCount]=oWater3 _offs[_buttonCount]=16 _killers[_buttonCount]=false _tooltips[_buttonCount]='Water 3';
+_buttonCount++;
+_xxs[_buttonCount]=2 _yys[_buttonCount]=3 _sprs[_buttonCount]=sWalljumpR _objs[_buttonCount]=oWalljumpR _offs[_buttonCount] = 16 _killers[_buttonCount]=false _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=3 _yys[_buttonCount]=3 _sprs[_buttonCount]=sWalljumpL _objs[_buttonCount]=oWalljumpL _offs[_buttonCount] = 16 _killers[_buttonCount]=false _tooltips[_buttonCount] = ''; 
+_buttonCount++;        
+_xxs[_buttonCount]=0 _yys[_buttonCount]=4 _sprs[_buttonCount]=sJumpRefresher _objs[_buttonCount]=oJumpRefresher _offs[_buttonCount]=0 _killers[_buttonCount]=false _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=1 _yys[_buttonCount]=4 _sprs[_buttonCount]=sSave _objs[_buttonCount]=oSave _offs[_buttonCount]=16 _killers[_buttonCount]=false _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=2 _yys[_buttonCount]=4 _sprs[_buttonCount]=sPlayerStart _objs[_buttonCount]=oPlayerStart _offs[_buttonCount]=16 _killers[_buttonCount]=false _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=3 _yys[_buttonCount]=4 _sprs[_buttonCount]=sEllipsis _objs[_buttonCount]=noone _offs[_buttonCount]=0 _killers[_buttonCount]=false _tooltips[_buttonCount]='More objects'
+_buttonCount++;
+_xxs[_buttonCount]=0 _yys[_buttonCount]=5 _sprs[_buttonCount]=sWarp _objs[_buttonCount]=oWarp _offs[_buttonCount]=16 _killers[_buttonCount]=false _tooltips[_buttonCount]='Goal';
+_buttonCount++;
+_xxs[_buttonCount]=1 _yys[_buttonCount]=5 _sprs[_buttonCount]=sKillerBlock _objs[_buttonCount]=oKillerBlock _offs[_buttonCount]=16 _killers[_buttonCount]=true _tooltips[_buttonCount]='Killer block';
+_buttonCount++;
+_xxs[_buttonCount]=2 _yys[_buttonCount]=5 _sprs[_buttonCount]=sWater1 _objs[_buttonCount]=oWater _offs[_buttonCount]=16 _killers[_buttonCount]=false _tooltips[_buttonCount]='Water 1';
+_buttonCount++;
+_xxs[_buttonCount]=3 _yys[_buttonCount]=5 _sprs[_buttonCount]=sBulletBlocker _objs[_buttonCount]=oBulletBlocker _offs[_buttonCount]=16 _killers[_buttonCount]=false _tooltips[_buttonCount]='Bullet blocker';
+_buttonCount++;        
+_xxs[_buttonCount]=0 _yys[_buttonCount]=6 _sprs[_buttonCount]=sGravityArrowUp _objs[_buttonCount]=oGravityArrowUp _offs[_buttonCount]=16 _killers[_buttonCount]=false _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=1 _yys[_buttonCount]=6 _sprs[_buttonCount]=sGravityArrowDown _objs[_buttonCount]=oGravityArrowDown _offs[_buttonCount]=16 _killers[_buttonCount]=false _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=2 _yys[_buttonCount]=6 _sprs[_buttonCount]=sSaveFlip _objs[_buttonCount]=oSaveFlip _offs[_buttonCount]=16 _killers[_buttonCount]=false _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=3 _yys[_buttonCount]=6 _sprs[_buttonCount]=sPink32 _objs[_buttonCount]=oTrg _offs[_buttonCount]=16 _killers[_buttonCount]=false _tooltips[_buttonCount] = ''; 
+_buttonCount++;
+_xxs[_buttonCount]=0 _yys[_buttonCount]=7 _sprs[_buttonCount]=sMiniKillerBlock _objs[_buttonCount]=oMiniKillerBlock _offs[_buttonCount]=0 _killers[_buttonCount]=true _tooltips[_buttonCount]='Mini killer block';
+_buttonCount++;
+
 buttonCount = 0;
-xxs[buttonCount]=0 yys[buttonCount]=0 sprs[buttonCount]=sSpikeUp objs[buttonCount]=oSpikeUp offs[buttonCount]=16 killers[buttonCount]=true tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=1 yys[buttonCount]=0 sprs[buttonCount]=sSpikeDown objs[buttonCount]=oSpikeDown offs[buttonCount]=16 killers[buttonCount]=true tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=2 yys[buttonCount]=0 sprs[buttonCount]=sSpikeLeft objs[buttonCount]=oSpikeLeft offs[buttonCount]=16 killers[buttonCount]=true tooltips[buttonCount] = ''; 
-buttonCount++;
-xxs[buttonCount]=3 yys[buttonCount]=0 sprs[buttonCount]=sSpikeRight objs[buttonCount]=oSpikeRight offs[buttonCount]=16 killers[buttonCount]=true tooltips[buttonCount] = ''; 
-buttonCount++;
-
-
+xxs = array_create(0);
+yys = array_create(0);
+sprs = array_create(0);
+objs = array_create(0);
+offs = array_create(0);
+killers = array_create(0);
+tooltips = array_create(0);
+for (var i = 0; i != _buttonCount; ++i) {
+    var obj = _objs[i];
+    if (isAVObject(obj)) {
+        xxs[buttonCount] = _xxs[buttonCount];
+        yys[buttonCount] = _yys[buttonCount];
+        sprs[buttonCount] = _sprs[i];
+        objs[buttonCount] = _objs[i];
+        offs[buttonCount] = _offs[i];
+        killers[buttonCount] = _killers[i];
+        tooltips[buttonCount] = _tooltips[i];
+        
+        ++buttonCount;
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="4">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>selectEditObject(0);
 </string>
           </argument>
         </arguments>
